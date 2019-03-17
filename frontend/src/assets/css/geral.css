@@ -1,0 +1,11 @@
+* {
+    color: #505050;
+}
+
+th {
+    background-color: #AAA;
+    color: #FFF;
+}
+td, th {
+    font-size: 14px;
+}

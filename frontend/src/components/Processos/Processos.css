@@ -1,0 +1,19 @@
+section {
+    padding: 20px;
+}
+
+section header button {
+    float: right;
+    margin-top: -10px;
+}
+
+button i {
+    margin: 0px 8px 1px 0px;
+    float: left;
+    color: #FFF;
+}
+button span {
+    margin: 0px 4px 0px 0px;
+    float: left;
+    color: #FFF;
+}

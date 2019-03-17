@@ -1,0 +1,8 @@
+#main-header {
+    padding: 12px 20px;
+    background-color: #007bff;
+}
+
+#main-header > img#logo-header {
+    height: 32px;
+}
