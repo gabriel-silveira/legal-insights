@@ -1,11 +1,27 @@
 * {
-    color: #505050;
+    color: #555;
+}
+
+h1, h2, h3, h4, a {
+    color: #3776BB;
 }
 
 th {
-    background-color: #AAA;
+    background-color: #C0C0C0;
     color: #FFF;
 }
 td, th {
     font-size: 14px;
+}
+
+button {
+    background-color: #3776BB !important;
+}
+
+.page-item.active > span {
+    background-color: #3776BB !important;
+    border-color: #3776BB !important;
+}
+.page-link {
+    color: #3776BB;
 }
