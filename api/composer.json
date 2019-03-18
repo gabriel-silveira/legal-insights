@@ -1,6 +1,7 @@
 {
     "require": {
         "slim/slim": "^3.12",
-        "tuupola/cors-middleware": "^0.9.3"
+        "tuupola/cors-middleware": "^0.9.3",
+        "vlucas/phpdotenv": "^3.3"
     }
 }

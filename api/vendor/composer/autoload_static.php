@@ -8,6 +8,7 @@ class ComposerStaticInit63539b59b4a35c9d3ef86fc4a23c9ae7
 {
     public static $files = array (
         '253c157292f75eb38082b5acb06f3f01' => __DIR__ . '/..' . '/nikic/fast-route/src/functions.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -18,6 +19,7 @@ class ComposerStaticInit63539b59b4a35c9d3ef86fc4a23c9ae7
         ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Ctype\\' => 23,
             'Slim\\' => 5,
         ),
         'P' => 
@@ -39,6 +41,10 @@ class ComposerStaticInit63539b59b4a35c9d3ef86fc4a23c9ae7
         array (
             'FastRoute\\' => 10,
         ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -50,6 +56,10 @@ class ComposerStaticInit63539b59b4a35c9d3ef86fc4a23c9ae7
         'Tuupola\\Http\\Factory\\' => 
         array (
             0 => __DIR__ . '/..' . '/tuupola/http-factory/src',
+        ),
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
         'Slim\\' => 
         array (
@@ -85,6 +95,10 @@ class ComposerStaticInit63539b59b4a35c9d3ef86fc4a23c9ae7
         array (
             0 => __DIR__ . '/..' . '/nikic/fast-route/src',
         ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -93,6 +107,10 @@ class ComposerStaticInit63539b59b4a35c9d3ef86fc4a23c9ae7
             'Pimple' => 
             array (
                 0 => __DIR__ . '/..' . '/pimple/pimple/src',
+            ),
+            'PhpOption\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
             ),
         ),
     );

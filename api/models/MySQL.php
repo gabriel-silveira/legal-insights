@@ -3,10 +3,6 @@
 namespace Database;
 
 class MySQL {
-    const HOST = '186.202.152.122';
-    const DB = 'legal_insights';
-    const USER = 'legal_insights';
-    const PASS = 'kx03dbj49c1-';
     
     public function __construct() {
         try {
@@ -17,7 +13,10 @@ class MySQL {
     }
     
     public function conn() {
-        return new \PDO('mysql:host='.self::HOST.';dbname='.self::DB, self::USER, self::PASS);
+        return new \PDO('mysql:host='.$_ENV['HOST'].';
+        dbname='.$_ENV['NAME'], 
+        $_ENV['USUARIO'],
+         $_ENV['PASS']);
     }
     
     public function insert($query, $arr = '') {

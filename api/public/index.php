@@ -5,6 +5,10 @@ use Tuupola\Middleware\CorsMiddleware as Cors;
 
 require './vendor/autoload.php';
 
+// .env
+$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
+
 // importa todos os models
 foreach(scandir('./models/') as $filename) if(!in_array($filename, ['.','..'])) require './models/'.$filename;
 
