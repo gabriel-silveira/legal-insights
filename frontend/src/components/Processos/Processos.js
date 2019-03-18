@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
 import axios from 'axios'
-import API from '../../routes'
+import API from '../../services/api'
 
 import Table from 'react-bootstrap/Table'
 import { Button } from 'react-bootstrap'
@@ -23,18 +23,26 @@ class Processos extends Component {
     }
 
     componentDidMount() {
+        this.getPage(1)
+    }
+
+    getPage = (page) => {
         let self = this
-        axios.get(API.processos).then((res) => {
+        axios.get(API.processos+`/page/${page}`).then((res) => {
             const { items, ...paginacao } = res.data
             self.setState({ processos: items, paginacao: paginacao })
         })
+    }
+
+    changePage(e, page) {
+        this.getPage(page)
     }
 
     pageNumbers = (pages, active) => {
         let items = []
         for (let i = 1; i <= pages; i++) {
             items.push(
-                <Pagination.Item key={i} active={i === active} onClick={this.getPage}>{i}</Pagination.Item>,
+                <Pagination.Item key={i} active={i === active} onClick={(e) => { this.changePage(e, i) }}>{i}</Pagination.Item>,
             );
         }
         return items

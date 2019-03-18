@@ -22,8 +22,8 @@ $container['processo'] = new \Model\Processo;
 
 
 // obter lista de processos
-$app->get('/api/processos', function(Request $request, Response $response) {
-    $this['processo']->obter_processos();
+$app->get('/api/processos/page/{page}', function(Request $request, Response $response, array $args) {
+    $this['processo']->obter_processos($args['page']);
     return $response->withStatus(200)
         ->withHeader('Content-Type', 'application/json')
         ->write(json_encode($this['processo']->processos));
