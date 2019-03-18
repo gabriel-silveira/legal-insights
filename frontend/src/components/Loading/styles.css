@@ -1,0 +1,6 @@
+.sweet-loading {
+    position: absolute;
+    height: calc(100% - 62px);
+    width: 100%;
+    top: 62px;
+}

@@ -2,16 +2,26 @@
     color: #555;
 }
 
+body {
+    background-color: #F4F4F4;
+}
+
 h1, h2, h3, h4, a {
     color: #3776BB;
 }
 
+table {
+    background-color: #FFF;
+}
 th {
     background-color: #C0C0C0;
     color: #FFF;
 }
 td, th {
     font-size: 14px;
+}
+td {
+    background-color: #FFF;
 }
 
 button {
