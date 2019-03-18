@@ -17,7 +17,7 @@ class Processos extends Component {
             pagina: 0,
             paginas: 0
         },
-        loading: false
+        loading: true
       }
     }
 
@@ -25,17 +25,11 @@ class Processos extends Component {
         this.getPage(1)
     }
 
-    setLoading = (val) => {
-        console.log(val)
-        this.setState({ loading: val })
-    }
-
     async getPage(page) {
-        this.setLoading(true)
+        this.setState({ loading: true })
         const res = await API.get(`processos/page/${page}`)
         const { items, ...paginacao } = res.data
-        this.setState({ processos: items, paginacao: paginacao })
-        this.setLoading(false)
+        this.setState({ processos: items, paginacao: paginacao, loading: false })
     }
 
     changePage(e, page) {
@@ -61,7 +55,7 @@ class Processos extends Component {
         return (
             <section>
                 <header>
-                        <Button><i className="material-icons">folder_open</i><span>Novo...</span></Button>
+                        <Link to="/novo"><Button><i className="material-icons">folder_open</i><span>Novo...</span></Button></Link>
                         <h4>Processos judiciais</h4>
                 </header>
                 <div>
@@ -85,7 +79,7 @@ class Processos extends Component {
                                 return (
                                     <tr key={processo.num_processo}>
                                         <td className="text-center">
-                                            <Link to={`/processo/${processo.num_processo}`}>{processo.num_processo}</Link>
+                                            <Link to={`/processo/${processo.num_processo}/${this.state.paginacao.pagina}`}>{processo.num_processo}</Link>
                                         </td>
                                         <td className="text-center align-middle">{processo.data_distrib}</td>
                                         <td className="text-center align-middle">{processo.reu_principal}</td>
@@ -95,7 +89,7 @@ class Processos extends Component {
                                         <td className="text-center align-middle">{processo.comarca}</td>
                                         <td className="text-center align-middle">{processo.uf}</td>
                                         <td className="text-center align-middle">{processo.criado}</td>
-                                        <td className="text-center align-middle">{ (processo.atualizado > 0) ? processo.atualizado : '' }</td>
+                                        <td className="text-center align-middle">{ (processo.atualizado > 0) ? processo.atualizado : '-' }</td>
                                     </tr>
                                 )
                             })}
