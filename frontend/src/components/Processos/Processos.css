@@ -16,6 +16,9 @@ button i {
     float: left;
     color: #FFF;
 }
+button i.padless {
+    margin: 0px 1px 1px 0px;
+}
 button span {
     margin: 0px 4px 0px 0px;
     float: left;

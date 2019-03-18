@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom"
-import axios from 'axios'
 import API from '../../services/api'
 
-import Table from 'react-bootstrap/Table'
-import { Button } from 'react-bootstrap'
-import Pagination from 'react-bootstrap/Pagination'
+import { Table, Button, Pagination } from 'react-bootstrap'
 import './Processos.css'
 
 class Processos extends Component {
@@ -26,12 +23,10 @@ class Processos extends Component {
         this.getPage(1)
     }
 
-    getPage = (page) => {
-        let self = this
-        axios.get(API.processos+`/page/${page}`).then((res) => {
-            const { items, ...paginacao } = res.data
-            self.setState({ processos: items, paginacao: paginacao })
-        })
+    async getPage(page) {
+        const res = await API.get(`processos/page/${page}`)
+        const { items, ...paginacao } = res.data
+        this.setState({ processos: items, paginacao: paginacao })
     }
 
     changePage(e, page) {
@@ -80,7 +75,7 @@ class Processos extends Component {
                             return (
                                 <tr key={processo.num_processo}>
                                     <td className="text-center">
-                                        <Link to={'/processo/'+processo.num_processo}>{processo.num_processo}</Link>
+                                        <Link to={`/processo/${processo.num_processo}`}>{processo.num_processo}</Link>
                                     </td>
                                     <td className="text-center align-middle">{processo.data_distrib}</td>
                                     <td className="text-center align-middle">{processo.reu_principal}</td>
