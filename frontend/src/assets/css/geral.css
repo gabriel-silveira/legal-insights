@@ -3,7 +3,7 @@
 }
 
 body {
-    background-color: #F4F4F4;
+    background-color: #F0F0F0;
 }
 
 h1, h2, h3, h4, a {
@@ -11,7 +11,7 @@ h1, h2, h3, h4, a {
 }
 
 table {
-    background-color: #FFF;
+    background-color: #FFF !important;
 }
 th {
     background-color: #AAA;
@@ -21,7 +21,7 @@ td, th {
     font-size: 14px;
 }
 td {
-    background-color: #FFF;
+    
 }
 
 button {

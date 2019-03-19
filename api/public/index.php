@@ -19,11 +19,19 @@ $container = $app->getContainer();
 // adiciona models ao slim
 $container['user'] = new \Model\User;
 $container['processo'] = new \Model\Processo;
+$container['regiao'] = new \Model\Regiao;
 
 
 
 
 
+// obter lista de processos
+$app->get('/api/estados/siglas', function(Request $request, Response $response) {
+    $this['regiao']->get_estados_siglas();
+    return $response->withStatus(200)
+        ->withHeader('Content-Type', 'application/json')
+        ->write(json_encode($this['regiao']->estados_siglas));
+});
 
 // obter lista de processos
 $app->get('/api/processos/page/{page}', function(Request $request, Response $response, array $args) {

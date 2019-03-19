@@ -6,7 +6,7 @@ class Processo extends \Database\Mysql {
     
     public $processos = [];
     public $processo = [];
-    public $ppp = 1; // processos por página
+    public $ppp = 5; // processos por página
 
     function __construct() {
         parent::__construct();
