@@ -1,0 +1,34 @@
+* {
+    color: #555;
+}
+
+body {
+    background-color: #F0F0F0;
+}
+
+h1, h2, h3, h4, a {
+    color: #3776BB;
+}
+
+table {
+    background-color: #FFF !important;
+}
+th {
+    background-color: #AAA;
+    color: #FFF;
+}
+td, th {
+    font-size: 14px;
+}
+
+button {
+    background-color: #3776BB !important;
+}
+
+.page-item.active > span {
+    background-color: #3776BB !important;
+    border-color: #3776BB !important;
+}
+.page-link {
+    color: #3776BB;
+}

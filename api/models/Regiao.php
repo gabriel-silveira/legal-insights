@@ -18,4 +18,11 @@ class Regiao extends \Database\Mysql {
         foreach($estados as $estado) array_push($siglas, $estado['sigla']);
         $this->estados_siglas = $siglas;
     }
+
+    function get_municipios($uf) {
+        $ms = $this->fetch_array("SELECT * FROM municipios WHERE uf = '$uf'");
+        $municipios = [];
+        foreach($ms as $municipio) array_push($municipios, array('codibge'=>$municipio['codibge'], 'nome'=>$municipio['nome']));
+        $this->municipios = $municipios;
+    }
 }

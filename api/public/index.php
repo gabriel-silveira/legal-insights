@@ -25,15 +25,22 @@ $container['regiao'] = new \Model\Regiao;
 
 
 
-// obter lista de processos
-$app->get('/api/estados/siglas', function(Request $request, Response $response) {
+// siglas dos estados
+$app->get('/api/regiao/estados/siglas', function(Request $request, Response $response) {
     $this['regiao']->get_estados_siglas();
     return $response->withStatus(200)
         ->withHeader('Content-Type', 'application/json')
         ->write(json_encode($this['regiao']->estados_siglas));
 });
+// municípios do estado
+$app->get('/api/regiao/municipios/{uf}', function(Request $request, Response $response, array $args) {
+    $this['regiao']->get_municipios($args['uf']);
+    return $response->withStatus(200)
+        ->withHeader('Content-Type', 'application/json')
+        ->write(json_encode($this['regiao']->municipios));
+});
 
-// obter lista de processos
+// lista de processos por página
 $app->get('/api/processos/page/{page}', function(Request $request, Response $response, array $args) {
     $this['processo']->obter_processos($args['page']);
     return $response->withStatus(200)
