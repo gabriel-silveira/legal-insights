@@ -59,7 +59,7 @@ class Processos extends Component {
                         <h4>Processos judiciais</h4>
                 </header>
                 <div>
-                    <Table bordered hover>
+                    <Table responsive bordered hover>
                         <thead>
                             <tr>
                                 <th className="text-center">Número do processo</th>
@@ -89,7 +89,7 @@ class Processos extends Component {
                                         <td className="text-center align-middle">{processo.comarca}</td>
                                         <td className="text-center align-middle">{processo.uf}</td>
                                         <td className="text-center align-middle">{processo.criado}</td>
-                                        <td className="text-center align-middle">{ (processo.atualizado > 0) ? processo.atualizado : '-' }</td>
+                                        <td className="text-center align-middle">{ (processo.atualizado !== '31/12/1969') ? processo.atualizado : '-' }</td>
                                     </tr>
                                 )
                             })}

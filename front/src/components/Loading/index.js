@@ -3,19 +3,19 @@ import { css } from '@emotion/core';
 import { BarLoader } from 'react-spinners';
 import './styles.css'
 
-const override = css`
-    position: absolute;
-    display: inline-block;
-    top: 46%;
-    left: 47%;
-    border-color: red;
-`;
-
 class AwesomeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true
+      loading: true,
+      size: 10,
+      css: css`
+      position: absolute;
+      display: inline-block;
+      top: 46%;
+      left: 47%;
+      border-color: red;
+  `
     }
   }
 
@@ -23,9 +23,9 @@ class AwesomeComponent extends React.Component {
     return (
       <div className="sweet-loading">
         <BarLoader
-          css={override}
+          css={this.state.css}
           sizeUnit={"px"}
-          size={10}
+          size={this.state.size}
           color={'#3776BB'}
           loading={this.state.loading}
         />

@@ -41,7 +41,7 @@ class Processo extends \Database\Mysql {
                                     c.nome as comarca,
                                     p.uf,
                                     DATE_FORMAT(FROM_UNIXTIME(p.criado), '%d/%m/%Y') as criado,
-                                    p.atualizado
+                                    DATE_FORMAT(FROM_UNIXTIME(p.atualizado), '%d/%m/%Y') as atualizado
                                     FROM processos as p
                                     LEFT JOIN comarcas as c ON p.comarca = c.codibge 
                                     ORDER BY criado DESC");
