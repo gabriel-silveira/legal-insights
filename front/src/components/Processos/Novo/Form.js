@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import { Button } from 'react-bootstrap'
-import CurrencyInput from 'react-currency-input'
 
 import Datepicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
@@ -32,7 +31,7 @@ class FormNovoProcesso extends Component {
 
   async getUFs() {
     const res = await API.get(`regiao/estados/siglas`)
-    this.setState({ UFs: res.data })
+    this.setState((state) => ({ UFs: res.data }))
   }
 
   selecionarEstado(e, uf) {
@@ -114,17 +113,38 @@ class FormNovoProcesso extends Component {
     return (anoMesDia) ? anoF+"-"+mesF+"-"+diaF : diaF+"/"+mesF+"/"+anoF;
   }
 
-  handleSubmit(event) {
-    console.log(this.state)
-    event.preventDefault();
-  }
-
-  alterarValorCausa(event, maskedvalue, floatvalue){
-    this.setState({valor_causa: floatvalue})
+  setNumProcesso(num) {
+    this.setState((state) => ({ num_processo: num }))
   }
 
   setReuPrincipal(nome_reu) {
     this.setState((state) => ({ reu_principal: nome_reu }))
+  }
+
+  handleSubmit(event) {
+    let inputValor = document.getElementById('valor_causa')
+    console.log(inputValor.value)
+    const {
+      num_processo,
+      estado,
+      codibge,
+      data_distrib,
+      reu_principal,
+      valor_causa,
+      vara
+    } = this.state
+    console.log(num_processo, 
+      estado, 
+      codibge, 
+      data_distrib, 
+      reu_principal, 
+      valor_causa,
+      vara)
+    event.preventDefault();
+  }
+
+  alterarValor(valor) {
+    this.setState((state) => ({ valor_causa: valor }))
   }
 
   render() {
@@ -134,7 +154,7 @@ class FormNovoProcesso extends Component {
         <Form.Row>
           <Form.Group as={Col} controlId="num_processo">
             <Form.Label>Número do processo</Form.Label>
-            <Form.Control type="text" value={this.state.num_processo} placeholder="" maxLength="40" />
+            <Form.Control type="text" onChange={e => this.setNumProcesso(e.target.value)} placeholder="" maxLength="40" />
           </Form.Group>
           <Form.Group as={Col} controlId="reu_principal">
             <Form.Label>Réu principal</Form.Label>
@@ -142,11 +162,8 @@ class FormNovoProcesso extends Component {
           </Form.Group>
           <Form.Group as={Col} controlId="valor_causa">
             <Form.Label>Valor da causa</Form.Label>
-            <CurrencyInput onChangeEvent={this.alterarValorCausa} className="form-control" prefix="R$ " decimalSeparator="," thousandSeparator="." />
-          </Form.Group>
-          <Form.Group as={Col} controlId="data_distrib">
-            <Form.Label>Data de distribuição</Form.Label>
-            <Datepicker className="form-control" id="data-distrib" timeFormat="dd/MM/yyyy" onChange={this.selecionarData} />
+            <input type="hidden" id="valor_causa" />
+            <Form.Control type="text" placeholder="1.000,00" onChange={e => this.alterarValor(e.target.value)} />
           </Form.Group>
         </Form.Row>
 
@@ -155,6 +172,7 @@ class FormNovoProcesso extends Component {
             <Form.Label>Vara </Form.Label>
             <Form.Control type="vara" placeholder="" />
           </Form.Group>
+
           <Form.Group as={Col} controlId="formBasicEmail">
             <Form.Label>Estado </Form.Label>
             { this.selectEstado() }
@@ -164,9 +182,15 @@ class FormNovoProcesso extends Component {
             <Form.Label>Comarca </Form.Label>
             { !this.state.loading_municipios ? this.selectMunicipio() : <Loading /> }
           </Form.Group>
+
+          <Form.Group as={Col} controlId="data_distrib">
+            <Form.Label>Data de distribuição</Form.Label>
+            <Datepicker className="form-control" id="data-distrib" timeFormat="dd/MM/yyyy" onChange={this.selecionarData} />
+          </Form.Group>
         </Form.Row>
 
         <Button variant="primary" className="float-right" type="button" onClick={(e) => {this.handleSubmit(e)}}>Cadastrar</Button>
+        
       </Form>
     )
   }
