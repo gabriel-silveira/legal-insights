@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route }  from 'react-router-dom'
 
 import Processos from './components/Processos'
 import Processo from './components/Processos/Processo'
-import NovoProcesso from './components/Processos/Novo'
+import Novo from './components/Processos/Novo/'
 
 const Routes = () => {
     return (
@@ -11,7 +11,7 @@ const Routes = () => {
             <Switch>
                 <Route exact path="/" component={Processos} />
                 <Route path="/processo/:id/:previous_page" component={Processo} />
-                <Route path="/novo" component={NovoProcesso} />
+                <Route path="/novo" component={Novo} />
             </Switch>
         </BrowserRouter>
     )
