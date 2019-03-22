@@ -6,7 +6,10 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import { Button } from 'react-bootstrap'
 
+import API from '../../../services/api'
+
 import BackButton from '../../BackButton'
+import Loading from '../../Loading/inline'
 
 class FormSection extends Component {
   render() {
@@ -30,6 +33,7 @@ class FormNovo extends Component {
     constructor(props) {
       super(props)
       this.state ={
+        UFs: [],
         enviado: false,
         num_processo: '',
         data_distrib: '',
@@ -40,24 +44,84 @@ class FormNovo extends Component {
         estado: ''
       }
     }
+
+    componentDidMount() {
+      this.getUFs()
+    }
+
+    async getUFs() {
+      const res = await API.get(`regiao/estados/siglas`)
+      this.setState((state) => ({ UFs: res.data }))
+    }
+
+    async getMunicipios() {
+      this.setState({ loading_municipios: true })
+      const res = await API.get(`regiao/municipios/${this.state.estado}`)
+      let municipios = res.data
+      this.setState({ municipios: municipios, loading_municipios: false })
+    }
   
     handleChange = (event) => {
       this.setState({
         [event.target.name]: event.target.value
       })
     }
+
+
+    selectEstado() {
+      return (
+        <Form.Control as="select">
+          <option onClick={(e) => { this.selecionarEstado(e, null) }}>selecione</option>
+          {this.state.UFs.map((uf) => {
+            return (
+          <option key={uf} onClick={(e) => { this.selecionarEstado(e, uf) }}>{uf}</option>
+            );
+          })}
+        </Form.Control>
+      )
+    }
+    selecionarEstado(e, uf) {
+      if(!uf) {
+        this.setState({ estado: false, municipios: false })
+        return false
+      }
+      this.setState({ estado: uf }, function() {
+        this.getMunicipios()
+      })
+    }
+
+    selectMunicipio() {
+      // if(loading_municipios) LOADING_SPINNER
+      if(this.state.municipios) {
+        const options = this.state.municipios.map((municipio, index) => {
+          return (
+            <option key={index} value={municipio['codibge']} onClick={(e) => 
+              {
+                this.setState({ codibge: municipio['codibge'] })
+              }
+            }>{municipio['codibge']+' - '+municipio['nome']}</option>
+          );
+        })
+  
+        return (
+          <Form.Control as="select">
+            <option value="0">selecione a comarca</option>
+            {options}
+          </Form.Control>
+        )
+      } else {
+        return (
+          <Form.Control as="select">
+            <option value="0">selecione a comarca</option>
+          </Form.Control>
+        )
+      }
+    }
   
     handleSubmit = e => {
-        /*enviado: false,
-        num_processo: '',
-        data_distrib: '',
-        reu: '',
-        valor: '',
-        vara: '',
-        comarca: '',
-        estado: ''*/
-      const { num_processo, data_distrib, reu, valor, vara, comarca, estado } = this.state
-      console.log(num_processo, data_distrib, reu, valor, vara, comarca, estado)
+        /*enviado: false*/
+      const { num_processo, data_distrib, reu, valor, vara, codibge, estado } = this.state
+      console.log(num_processo, data_distrib, reu, valor, vara, codibge, estado)
       //this.setState({ enviado: true })
       e.preventDefault()
     }
@@ -94,6 +158,27 @@ class FormNovo extends Component {
                             name="valor"
                             onChange={this.handleChange} 
                             value={this.state.valor} />
+                    </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                    <Form.Group as={Col} controlId="num_processo">
+                        <Form.Label>Vara</Form.Label>
+                        <Form.Control 
+                        type="text" maxLength="40" 
+                        name="vara"
+                        onChange={this.handleChange} 
+                        value={this.state.vara} />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formBasicEmail">
+                      <Form.Label>Estado </Form.Label>
+                      { this.selectEstado() }
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formBasicEmail">
+                      <Form.Label>Comarca </Form.Label>
+                      { !this.state.loading_municipios ? this.selectMunicipio() : <Loading /> }
                     </Form.Group>
                 </Form.Row>
 
