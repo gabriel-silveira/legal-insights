@@ -6,7 +6,12 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import { Button } from 'react-bootstrap'
 
+// react-datepicker
+import Datepicker from 'react-datepicker'
+import "react-datepicker/dist/react-datepicker.css"
+
 import API from '../../../services/api'
+import './styles.css'
 
 import BackButton from '../../BackButton'
 import Loading from '../../Loading/inline'
@@ -67,8 +72,19 @@ class FormNovo extends Component {
       })
     }
 
+    // formata e atualiza data de distribuição
+    handleDataDistrib = (data) => {
+      let dia  = data.getDate().toString(),
+      diaF = (dia.length === 1) ? '0'+dia : dia,
+      mes  = (data.getMonth()+1).toString(),
+      mesF = (mes.length === 1) ? '0'+mes : mes,
+      anoF = data.getFullYear()
+      let dataFormatada = diaF+"/"+mesF+"/"+anoF
+      this.setState({ data_distrib: dataFormatada })
+    }
 
-    selectEstado() {
+
+    Estados() {
       return (
         <Form.Control as="select">
           <option onClick={(e) => { this.selecionarEstado(e, null) }}>selecione</option>
@@ -90,7 +106,7 @@ class FormNovo extends Component {
       })
     }
 
-    selectMunicipio() {
+    Municipios() {
       // if(loading_municipios) LOADING_SPINNER
       if(this.state.municipios) {
         const options = this.state.municipios.map((municipio, index) => {
@@ -119,9 +135,11 @@ class FormNovo extends Component {
     }
   
     handleSubmit = e => {
-        /*enviado: false*/
       const { num_processo, data_distrib, reu, valor, vara, codibge, estado } = this.state
-      console.log(num_processo, data_distrib, reu, valor, vara, codibge, estado)
+      let dados = [
+        num_processo, data_distrib, reu, valor, vara, codibge, estado
+      ]
+      console.log(dados)
       //this.setState({ enviado: true })
       e.preventDefault()
     }
@@ -140,7 +158,7 @@ class FormNovo extends Component {
                         value={this.state.num_processo} />
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="num_processo">
+                    <Form.Group as={Col} controlId="reu">
                         <Form.Label>Réu principal</Form.Label>
                         <Form.Control 
                         type="text" maxLength="40" 
@@ -149,7 +167,7 @@ class FormNovo extends Component {
                         value={this.state.reu} />
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="num_processo">
+                    <Form.Group as={Col} controlId="valor">
                         <Form.Label>Valor da causa</Form.Label>
                         <CurrencyFormat className="form-control" 
                             thousandSeparator="." 
@@ -162,7 +180,7 @@ class FormNovo extends Component {
                 </Form.Row>
 
                 <Form.Row>
-                    <Form.Group as={Col} controlId="num_processo">
+                    <Form.Group as={Col} controlId="vara">
                         <Form.Label>Vara</Form.Label>
                         <Form.Control 
                         type="text" maxLength="40" 
@@ -171,18 +189,34 @@ class FormNovo extends Component {
                         value={this.state.vara} />
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formBasicEmail">
+                    <Form.Group as={Col} controlId="estados">
                       <Form.Label>Estado </Form.Label>
-                      { this.selectEstado() }
+                      { this.Estados() }
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formBasicEmail">
+                    <Form.Group as={Col} controlId="municipios">
                       <Form.Label>Comarca </Form.Label>
-                      { !this.state.loading_municipios ? this.selectMunicipio() : <Loading /> }
+                      { !this.state.loading_municipios ? this.Municipios() : <Loading /> }
                     </Form.Group>
                 </Form.Row>
 
-                <Button variant="primary" className="float-right" type="button" onClick={this.handleSubmit}>Cadastrar</Button>
+                <Form.Row>
+                  <Form.Group as={Col} controlId="data_distrib">
+                    <Form.Label>Data de distribuição</Form.Label>
+                    <Datepicker className="form-control" id="data-distrib" timeFormat="dd/MM/yyyy"
+                        name="data_distrib"
+                        onChange={this.handleDataDistrib} 
+                        value={this.state.data_distrib}
+                        selected={new Date()} />
+                  </Form.Group>
+                </Form.Row>
+
+                <Form.Row>
+                  <Form.Group as={Col} controlId="bt-submit">
+                    <Button variant="primary" block type="button" onClick={this.handleSubmit}>Cadastrar</Button>
+                  </Form.Group>
+                </Form.Row>
+
             </Form>
         )
     }

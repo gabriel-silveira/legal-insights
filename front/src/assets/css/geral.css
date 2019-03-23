@@ -1,3 +1,7 @@
+:root {
+    --bg-blue: rgb(55,118,187);
+}
+
 * {
     color: #555;
 }
@@ -22,7 +26,10 @@ td, th {
 }
 
 button.btn {
-    background-color: #3776BB !important;
+    background-color: var(--bg-blue) !important;
+}
+button.btn:hover {
+    opacity: 0.85;
 }
 
 .page-item.active > span {
