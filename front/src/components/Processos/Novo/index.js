@@ -1,20 +1,19 @@
 import React, { Component } from 'react'
-import { Card } from 'react-bootstrap'
 import CurrencyFormat from 'react-currency-format'
 
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import { Button } from 'react-bootstrap'
+// react-bootstrap
+import { Card, Form, Col, Button, Alert } from 'react-bootstrap'
 
 // react-datepicker
 import Datepicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
-import API from '../../../services/api'
-import './styles.css'
-
 import BackButton from '../../BackButton'
 import Loading from '../../Loading/inline'
+
+import API from '../../../services/api'
+import axios from 'axios'
+import './styles.css'
 
 class FormSection extends Component {
   render() {
@@ -46,8 +45,10 @@ class FormNovo extends Component {
         valor: '',
         vara: '',
         comarca: '',
-        estado: ''
+        estado: '',
+        alertaPreenchimento: false
       }
+      //this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -134,15 +135,54 @@ class FormNovo extends Component {
       }
     }
   
-    handleSubmit = e => {
+    handleSubmit = (e) => {
       const { num_processo, data_distrib, reu, valor, vara, codibge, estado } = this.state
-      let dados = [
-        num_processo, data_distrib, reu, valor, vara, codibge, estado
-      ]
-      console.log(dados)
-      //this.setState({ enviado: true })
+      let dados = [ num_processo, data_distrib, reu, valor, vara, codibge, estado ]
+
+      let vazios = this.camposVazios(dados)
+      this.setState({ alertaPreenchimento: vazios })
+      if(vazios) return false
+
+      let data = new FormData()
+      data.set('num_processo', num_processo)
+      data.set('data_distrib', data_distrib)
+      data.set('reu', reu)
+      data.set('valor', valor)
+      data.set('vara', vara)
+      data.set('codibge', codibge)
+      data.set('estado', estado)
+
+      axios({
+        method: 'post',
+        url: 'http://localhost/teste-api/',
+        data: data,
+        config: { headers: {'Content-Type': 'multipart/form-data' }}
+      }).then(function (res) {
+        //handle success
+        console.log(res.data)
+      }).catch(function (err) {
+        //handle error
+        console.log(err)
+      });
+
+      /*var queryString = Object.keys(dados).map(function(key) {
+          return key + '=' + dados[key]
+      }).join('&');
+      console.log(queryString)*/
+
       e.preventDefault()
+      
+      //this.setState({ enviado: true })
     }
+
+    camposVazios(campos) {
+      let vazio = 0
+      for(let campo of campos) if(!campo) vazio++
+      return vazio > 0
+    }
+
+    // para evitar warning sobre <Alert />
+    doNothing() {}
 
     render() {
         if(this.state.enviado) return <h1>Enviado!</h1>
@@ -211,10 +251,10 @@ class FormNovo extends Component {
                   </Form.Group>
                 </Form.Row>
 
+                <Alert show={this.state.alertaPreenchimento} onClose={this.doNothing} variant='danger' className="text-center">Preencha todos os campos antes de enviar.</Alert>
+
                 <Form.Row>
-                  <Form.Group as={Col} controlId="bt-submit">
                     <Button variant="primary" block type="button" onClick={this.handleSubmit}>Cadastrar</Button>
-                  </Form.Group>
                 </Form.Row>
 
             </Form>

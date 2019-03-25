@@ -1,1 +1,1 @@
-php -S localhost:8888 -t public public/index.php
+php -S localhost:8887 -t public public/index.php

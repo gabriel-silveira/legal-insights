@@ -13,18 +13,23 @@ $dotenv->load();
 foreach(scandir('./models/') as $filename) if(!in_array($filename, ['.','..'])) require './models/'.$filename;
 
 // inicia e configura slim
-$app = new \Slim\App([ 'settings' => [ 'displayErrorDetails' => true, 'addContentLengthHeader' => false ]]);
-$app->add(new Tuupola\Middleware\CorsMiddleware);
+$app = new \Slim\App([ 'settings' =>
+    [
+        'displayErrorDetails' => true,
+        'addContentLengthHeader' => false
+    ]
+]);
+$app->add(new Tuupola\Middleware\CorsMiddleware());
 $container = $app->getContainer();
+
 // adiciona models ao slim
 $container['user'] = new \Model\User;
 $container['processo'] = new \Model\Processo;
 $container['regiao'] = new \Model\Regiao;
 
 
-
-
-
+// REGIÕES
+//
 // siglas dos estados
 $app->get('/api/regiao/estados/siglas', function(Request $request, Response $response) {
     $this['regiao']->get_estados_siglas();
@@ -40,6 +45,9 @@ $app->get('/api/regiao/municipios/{uf}', function(Request $request, Response $re
         ->write(json_encode($this['regiao']->municipios));
 });
 
+
+// PROCESSOS
+//
 // lista de processos por página
 $app->get('/api/processos/page/{page}', function(Request $request, Response $response, array $args) {
     $this['processo']->obter_processos($args['page']);
@@ -47,7 +55,6 @@ $app->get('/api/processos/page/{page}', function(Request $request, Response $res
         ->withHeader('Content-Type', 'application/json')
         ->write(json_encode($this['processo']->processos));
 });
-
 // obter lista de processos
 $app->get('/api/processos/{id}', function(Request $request, Response $response, array $args) {
     $this['processo']->obter_processo($args['id']);
@@ -55,7 +62,16 @@ $app->get('/api/processos/{id}', function(Request $request, Response $response, 
         ->withHeader('Content-Type', 'application/json')
         ->write(json_encode($this['processo']->processo));
 });
+// salvar dados do novo processo
+$app->post('api/processos', function(Request $request, Response $response, array $args) {
+    return $response->withStatus(200)
+        ->withHeader('Content-Type', 'application/json')
+        ->write(json_encode($args));
+});
 
+
+// USUAŔIOS
+//
 // obter dados do usuário
 $app->get('/api/user/{id}', function (Request $request, Response $response, array $args) {
     $user = $this['db']->fetch_array("SELECT nome, usuario FROM users WHERE id = ".$args['id']);
@@ -63,5 +79,6 @@ $app->get('/api/user/{id}', function (Request $request, Response $response, arra
         ->withHeader('Content-Type', 'application/json')
         ->write(json_encode($user[0]));
 });
+
 
 $app->run();
