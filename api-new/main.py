@@ -4,10 +4,10 @@ import pymysql.cursors
 
 app = Flask(__name__)
 
-connection = pymysql.connect(host='186.202.152.122',
-                             user='legal_insights',
-                             password='kx03dbj49c1-',
-                             db='legal_insights',
+connection = pymysql.connect(host='',
+                             user='',
+                             password='',
+                             db='',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
