@@ -1,11 +1,45 @@
-from flask import Flask
-from controllers.processes import process
-from controllers.regiao import regiao
+from flask import Flask, request
+from models.processo import Process
+from models.regiao import Regiao
+from flask_cors import CORS
 
 app = Flask(__name__)
-app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
-app.register_blueprint(process, url_prefix='/processos')
-app.register_blueprint(regiao, url_prefix='/regioes')
+CORS(app)
+
+
+# PROCESSOS
+p = Process()
+
+
+@app.route('/processos', methods=['POST'])
+def product():
+    data = request.json
+    return p.json(data)
+
+
+@app.route('/processos/<num_processo>')
+def get_process(num_processo):
+    p.get_process(num_processo)
+    return p.json(p.process)
+
+
+@app.route('/processos/pagina/<int:num>')
+def get_processes_by_page(num):
+    return p.get_processes(num, True)
+
+
+# REGIÕES
+r = Regiao()
+
+
+@app.route('/regioes/estados/siglas')
+def estados_siglas():
+    return r.get_estados_siglas()
+
+
+@app.route('/regioes/municipios/<uf>')
+def municipios_by_uf(uf):
+    return r.get_municipios_by_uf(uf)
 
 
 if __name__ == "__main__":

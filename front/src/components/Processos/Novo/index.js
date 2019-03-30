@@ -12,6 +12,7 @@ import BackButton from '../../BackButton'
 import Loading from '../../Loading/inline'
 
 import API from '../../../services/api'
+import axios from 'axios'
 import './styles.css'
 
 class FormSection extends Component {
@@ -137,6 +138,15 @@ class FormNovo extends Component {
     handleSubmit = (e) => {
       const { num_processo, data_distrib, reu, valor, vara, codibge, estado } = this.state
       let dados = [ num_processo, data_distrib, reu, valor, vara, codibge, estado ]
+
+      let prod = {
+        name: 'iPhone 8',
+        price: 5999,
+        color: 'Black'
+      }
+      axios.post('http://127.0.0.1:5000/processos', prod).then((res) => {
+        console.log(res.data)
+      })
 
       let vazios = this.camposVazios(dados)
       this.setState({ alertaPreenchimento: vazios })
