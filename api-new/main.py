@@ -1,10 +1,11 @@
 from flask import Flask
-from flask_cors import CORS
 from controllers.processes import process
+from controllers.regiao import regiao
 
 app = Flask(__name__)
-app.register_blueprint(process)
-CORS(app)
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
+app.register_blueprint(process, url_prefix='/processos')
+app.register_blueprint(regiao, url_prefix='/regioes')
 
 
 if __name__ == "__main__":

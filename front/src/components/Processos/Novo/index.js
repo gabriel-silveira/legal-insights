@@ -12,7 +12,6 @@ import BackButton from '../../BackButton'
 import Loading from '../../Loading/inline'
 
 import API from '../../../services/api'
-import axios from 'axios'
 import './styles.css'
 
 class FormSection extends Component {
@@ -36,7 +35,7 @@ class FormSection extends Component {
 class FormNovo extends Component {
     constructor(props) {
       super(props)
-      this.state ={
+      this.state = {
         UFs: [],
         enviado: false,
         num_processo: '',
@@ -56,13 +55,13 @@ class FormNovo extends Component {
     }
 
     async getUFs() {
-      const res = await API.get(`regiao/estados/siglas`)
+      const res = await API.get(`regioes/estados/siglas`)
       this.setState((state) => ({ UFs: res.data }))
     }
 
     async getMunicipios() {
       this.setState({ loading_municipios: true })
-      const res = await API.get(`regiao/municipios/${this.state.estado}`)
+      const res = await API.get(`regioes/municipios/${this.state.estado}`)
       let municipios = res.data
       this.setState({ municipios: municipios, loading_municipios: false })
     }
@@ -142,36 +141,12 @@ class FormNovo extends Component {
       let vazios = this.camposVazios(dados)
       this.setState({ alertaPreenchimento: vazios })
       if(vazios) return false
-
-      let data = new FormData()
-      data.set('num_processo', num_processo)
-      data.set('data_distrib', data_distrib)
-      data.set('reu', reu)
-      data.set('valor', valor)
-      data.set('vara', vara)
-      data.set('codibge', codibge)
-      data.set('estado', estado)
-
-      axios({
-        method: 'post',
-        url: 'http://localhost/teste-api/',
-        data: data,
-        config: { headers: {'Content-Type': 'multipart/form-data' }}
-      }).then(function (res) {
-        //handle success
+      
+      API.post('processos', dados).then((res) => {
         console.log(res.data)
-      }).catch(function (err) {
-        //handle error
-        console.log(err)
-      });
-
-      /*var queryString = Object.keys(dados).map(function(key) {
-          return key + '=' + dados[key]
-      }).join('&');
-      console.log(queryString)*/
+      })
 
       e.preventDefault()
-      
       //this.setState({ enviado: true })
     }
 

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 from mysql import connection
 import json
 
@@ -7,6 +6,7 @@ class Process:
     def __init__(self):
         self.process = []
         self.processes = []
+        self.ppp = 1  # processes per page
 
     def json(self, data):
         return json.dumps(data, indent=4)
@@ -30,7 +30,7 @@ class Process:
             cursor.execute(sql)
             self.process = cursor.fetchone()
 
-    def get_processes(self, pagina=1):
+    def get_processes(self, pagina = 1, ret = False):
         with connection.cursor() as cursor:
             sql = """SELECT p.num_processo, 
                     DATE_FORMAT(p.data_distrib, '%d/%m/%Y') as data_distrib,
@@ -47,3 +47,13 @@ class Process:
                     ORDER BY criado DESC"""
             cursor.execute(sql)
             self.processes = cursor.fetchall()
+            if ret:
+                total = len(self.processes)
+                data = {
+                    "items": self.processes,
+                    "total": total,
+                    "pagina": pagina,
+                    "paginas": int(total / self.ppp)
+                }
+                return self.json(data)
+

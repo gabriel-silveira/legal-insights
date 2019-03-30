@@ -27,7 +27,7 @@ class Processos extends Component {
 
     async getPage(page) {
         this.setState({ loading: true })
-        const res = await API.get(`processos/page/${page}`)
+        const res = await API.get(`processos/pagina/${page}`)
         const { items, ...paginacao } = res.data
         this.setState({ processos: items, paginacao: paginacao, loading: false })
     }
