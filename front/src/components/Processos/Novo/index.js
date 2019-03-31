@@ -12,7 +12,6 @@ import BackButton from '../../BackButton'
 import Loading from '../../Loading/inline'
 
 import API from '../../../services/api'
-import axios from 'axios'
 import './styles.css'
 
 class FormSection extends Component {
@@ -136,28 +135,30 @@ class FormNovo extends Component {
     }
   
     handleSubmit = (e) => {
-      const { num_processo, data_distrib, reu, valor, vara, codibge, estado } = this.state
-      let dados = [ num_processo, data_distrib, reu, valor, vara, codibge, estado ]
-
-      let prod = {
-        name: 'iPhone 8',
-        price: 5999,
-        color: 'Black'
+      if(this.verificarForm()) {
+        const dados = { ...this.state }
+        API.post('processos', {
+          num_processo: dados.num_processo,
+          data_distrib: dados.data_distrib,
+          reu: dados.reu,
+          valor: dados.valor,
+          vara: dados.vara,
+          codibge: dados.codibge,
+          estado: dados.estado
+        }).then((res) => {
+          console.log(res.data)
+        })
       }
-      axios.post('http://127.0.0.1:5000/processos', prod).then((res) => {
-        console.log(res.data)
-      })
-
-      let vazios = this.camposVazios(dados)
-      this.setState({ alertaPreenchimento: vazios })
-      if(vazios) return false
-      
-      API.post('processos', dados).then((res) => {
-        console.log(res.data)
-      })
 
       e.preventDefault()
       //this.setState({ enviado: true })
+    }
+
+    verificarForm() {
+      const { num_processo, data_distrib, reu, valor, vara, codibge, estado } = this.state
+      let vazios = this.camposVazios([ num_processo, data_distrib, reu, valor, vara, codibge, estado ])
+      this.setState({ alertaPreenchimento: vazios })
+      if(!vazios) return true
     }
 
     camposVazios(campos) {
