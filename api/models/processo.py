@@ -1,11 +1,10 @@
 from mysql import connection
 import json
-from datetime import datetime as dt
 
 
 class Process:
     def __init__(self):
-        self.ppp = 1  # processes per page
+        self.ppp = 5  # processes per page
 
     def json(self, data):
         return json.dumps(data, indent=4)
@@ -22,7 +21,7 @@ class Process:
             rows = cursor.execute(sql, (data['num_processo'], data_formatada, data['reu'],
                                         data['valor'].replace('.', '').replace(',', '.'), data['vara'], data['codibge'], data['estado'], 0, 0))
         connection.commit()
-        return str(rows)
+        return 1 if rows > 0 else 0
 
     @staticmethod
     def get_process(process_id):
@@ -62,11 +61,19 @@ class Process:
             cursor.execute(sql)
             processes = cursor.fetchall()
             total = len(processes)
-            data = {
-                "items": processes,
-                "total": total,
-                "pagina": page,
-                "paginas": int(total / self.ppp)
-            }
-            return self.json(data)
+
+            end = page * self.ppp
+            start = end - self.ppp
+            i = 1
+
+            processes_page = {"items": []}
+            for process in processes:
+                if start < i <= end:
+                    processes_page['items'].append(process)
+                i += 1
+
+            processes_page["total"] = total
+            processes_page["pagina"] = page
+            processes_page["paginas"] = int(total / self.ppp)
+            return self.json(processes_page)
 

@@ -37,7 +37,7 @@ class FormNovo extends Component {
       super(props)
       this.state = {
         UFs: [],
-        enviado: false,
+        cadastrado: false,
         num_processo: '',
         data_distrib: '',
         reu: '',
@@ -45,9 +45,9 @@ class FormNovo extends Component {
         vara: '',
         comarca: '',
         estado: '',
-        alertaPreenchimento: false
+        alertaPreenchimento: false,
+        processo_id: 0
       }
-      //this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -146,12 +146,12 @@ class FormNovo extends Component {
           codibge: dados.codibge,
           estado: dados.estado
         }).then((res) => {
-          console.log(res.data)
+          if(res.data)
+            this.setState({ cadastrado: true })
         })
       }
 
       e.preventDefault()
-      //this.setState({ enviado: true })
     }
 
     verificarForm() {
@@ -171,7 +171,7 @@ class FormNovo extends Component {
     doNothing() {}
 
     render() {
-        if(this.state.enviado) return <h1>Enviado!</h1>
+        if(this.state.cadastrado) return <h1>{this.state.num_processo}</h1>
         return (
             <Form>
                 <Form.Row>

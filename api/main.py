@@ -13,7 +13,7 @@ p = Process()
 
 @app.route('/processos', methods=['POST'])
 def product():
-    return p.new(request)
+    return str(p.new(request))
 
 
 @app.route('/processos/<num_processo>')

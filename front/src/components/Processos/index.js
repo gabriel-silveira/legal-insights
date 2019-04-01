@@ -50,6 +50,18 @@ class Processos extends Component {
 
     nextPage() { }
 
+    pagination() {
+        if(this.state.paginacao.paginas > 1) {
+            return (
+            <Pagination>
+                { this.state.paginacao.paginas > 3 ? <Pagination.Prev onClick={this.prevPage} /> : null }
+                { this.pageNumbers(this.state.paginacao.paginas, this.state.paginacao.pagina) }
+                { this.state.paginacao.paginas > 3 ? <Pagination.Next onClick={this.nextPage} /> : null }
+            </Pagination>
+            )
+        }
+    }
+
     render() {
         if(this.state.loading) return <Loading />
         return (
@@ -97,11 +109,7 @@ class Processos extends Component {
                     </Table>
                 </div>
                 <footer>
-                    <Pagination>
-                        { this.state.paginacao.paginas > 3 ? <Pagination.Prev onClick={this.prevPage} /> : null }
-                        { this.pageNumbers(this.state.paginacao.paginas, this.state.paginacao.pagina) }
-                        { this.state.paginacao.paginas > 3 ? <Pagination.Next onClick={this.nextPage} /> : null }
-                    </Pagination>
+                    {this.pagination()}
                 </footer>
             </section>
         )
