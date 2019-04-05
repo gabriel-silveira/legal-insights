@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css"
 
 import BackButton from '../../BackButton'
 import Loading from '../../Loading/inline'
+import AdicionarPedido from './AdicionarPedido'
 
 import API from '../../../services/api'
 import './styles.css'
@@ -46,7 +47,9 @@ class FormNovo extends Component {
         comarca: '',
         estado: '',
         alertaPreenchimento: false,
-        processo_id: 0
+        processo_id: 0,
+        adicionar_pedido: false,
+        dados_processo_enviar: {}
       }
     }
 
@@ -137,7 +140,7 @@ class FormNovo extends Component {
     handleSubmit = (e) => {
       if(this.verificarForm()) {
         const dados = { ...this.state }
-        API.post('processos', {
+        this.setState({ dados_processo_enviar: {
           num_processo: dados.num_processo,
           data_distrib: dados.data_distrib,
           reu: dados.reu,
@@ -145,10 +148,7 @@ class FormNovo extends Component {
           vara: dados.vara,
           codibge: dados.codibge,
           estado: dados.estado
-        }).then((res) => {
-          if(res.data)
-            this.setState({ cadastrado: true })
-        })
+        }, adicionar_pedido: true })
       }
 
       e.preventDefault()
@@ -171,78 +171,77 @@ class FormNovo extends Component {
     doNothing() {}
 
     render() {
-        if(this.state.cadastrado) return <h1>{this.state.num_processo}</h1>
+        if(this.state.adicionar_pedido) return <AdicionarPedido dados_processo={this.state.dados_processo_enviar} />
         return (
             <Form>
-                <Form.Row>
-                    <Form.Group as={Col} controlId="num_processo">
-                        <Form.Label>Número do processo</Form.Label>
-                        <Form.Control 
-                        type="text" maxLength="40" 
-                        name="num_processo"
-                        onChange={this.handleChange} 
-                        value={this.state.num_processo} />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="reu">
-                        <Form.Label>Réu principal</Form.Label>
-                        <Form.Control 
-                        type="text" maxLength="40" 
-                        name="reu"
-                        onChange={this.handleChange} 
-                        value={this.state.reu} />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="valor">
-                        <Form.Label>Valor da causa</Form.Label>
-                        <CurrencyFormat className="form-control" 
-                            thousandSeparator="." 
-                            decimalSeparator="," 
-                            decimalScale={2}
-                            name="valor"
-                            onChange={this.handleChange} 
-                            value={this.state.valor} />
-                    </Form.Group>
-                </Form.Row>
-
-                <Form.Row>
-                    <Form.Group as={Col} controlId="vara">
-                        <Form.Label>Vara</Form.Label>
-                        <Form.Control 
-                        type="text" maxLength="40" 
-                        name="vara"
-                        onChange={this.handleChange} 
-                        value={this.state.vara} />
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="estados">
-                      <Form.Label>Estado </Form.Label>
-                      { this.Estados() }
-                    </Form.Group>
-
-                    <Form.Group as={Col} controlId="municipios">
-                      <Form.Label>Comarca </Form.Label>
-                      { !this.state.loading_municipios ? this.Municipios() : <Loading /> }
-                    </Form.Group>
-                </Form.Row>
-
-                <Form.Row>
-                  <Form.Group as={Col} controlId="data_distrib">
-                    <Form.Label>Data de distribuição</Form.Label>
-                    <Datepicker className="form-control" id="data-distrib" timeFormat="dd/MM/yyyy"
-                        name="data_distrib"
-                        onChange={this.handleDataDistrib} 
-                        value={this.state.data_distrib}
-                        selected={new Date()} />
+              <Form.Row>
+                  <Form.Group as={Col} controlId="num_processo">
+                      <Form.Label>Número do processo</Form.Label>
+                      <Form.Control 
+                      type="text" maxLength="40" 
+                      name="num_processo"
+                      onChange={this.handleChange} 
+                      value={this.state.num_processo} />
                   </Form.Group>
-                </Form.Row>
 
-                <Alert show={this.state.alertaPreenchimento} onClose={this.doNothing} variant='danger' className="text-center">Preencha todos os campos antes de enviar.</Alert>
+                  <Form.Group as={Col} controlId="reu">
+                      <Form.Label>Réu principal</Form.Label>
+                      <Form.Control 
+                      type="text" maxLength="40" 
+                      name="reu"
+                      onChange={this.handleChange} 
+                      value={this.state.reu} />
+                  </Form.Group>
 
-                <Form.Row>
-                    <Button variant="primary" block type="button" onClick={this.handleSubmit}>Cadastrar</Button>
-                </Form.Row>
+                  <Form.Group as={Col} controlId="valor">
+                      <Form.Label>Valor da causa</Form.Label>
+                      <CurrencyFormat className="form-control" 
+                          thousandSeparator="." 
+                          decimalSeparator="," 
+                          decimalScale={2}
+                          name="valor"
+                          onChange={this.handleChange} 
+                          value={this.state.valor} />
+                  </Form.Group>
+              </Form.Row>
 
+              <Form.Row>
+                  <Form.Group as={Col} controlId="vara">
+                      <Form.Label>Vara</Form.Label>
+                      <Form.Control 
+                      type="text" maxLength="40" 
+                      name="vara"
+                      onChange={this.handleChange} 
+                      value={this.state.vara} />
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="estados">
+                    <Form.Label>Estado </Form.Label>
+                    { this.Estados() }
+                  </Form.Group>
+
+                  <Form.Group as={Col} controlId="municipios">
+                    <Form.Label>Comarca </Form.Label>
+                    { !this.state.loading_municipios ? this.Municipios() : <Loading /> }
+                  </Form.Group>
+              </Form.Row>
+
+              <Form.Row>
+                <Form.Group as={Col} controlId="data_distrib">
+                  <Form.Label>Data de distribuição</Form.Label>
+                  <Datepicker className="form-control" id="data-distrib" timeFormat="dd/MM/yyyy"
+                      name="data_distrib"
+                      onChange={this.handleDataDistrib} 
+                      value={this.state.data_distrib}
+                      selected={new Date()} />
+                </Form.Group>
+              </Form.Row>
+
+              <Alert show={this.state.alertaPreenchimento} onClose={this.doNothing} variant='danger' className="text-center">Preencha todos os campos antes de enviar.</Alert>
+
+              <Form.Row>
+                  <Button variant="primary" block type="button" onClick={this.handleSubmit}>Cadastrar</Button>
+              </Form.Row>
             </Form>
         )
     }
