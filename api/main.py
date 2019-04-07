@@ -12,8 +12,13 @@ p = Process()
 
 
 @app.route('/processos', methods=['POST'])
-def product():
-    return str(p.new(request))
+def new_process():
+    return str(p.new_process(request))
+
+
+@app.route('/processos/pedido', methods=['POST'])
+def new_order():
+    return str(p.new_order(request))
 
 
 @app.route('/processos/<num_processo>')

@@ -10,16 +10,30 @@ class Process:
         return json.dumps(data, indent=4)
 
     @staticmethod
-    def new(req):
+    def new_process(req):
         data = req.json
         with connection.cursor() as cursor:
             sql = """INSERT INTO `processos` (`num_processo`, `data_distrib`, `reu_principal`, 
-            `valor_causa`, `vara`, `comarca`, `uf`, `criado`, `atualizado`) 
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+            `valor_causa`, `vara`, `comarca`, `uf`) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s)"""
             dt = data['data_distrib'].split('/')
             data_formatada = dt[2]+'-'+dt[1]+'-'+dt[0]
             rows = cursor.execute(sql, (data['num_processo'], data_formatada, data['reu'],
-                                        data['valor'].replace('.', '').replace(',', '.'), data['vara'], data['codibge'], data['estado'], 0, 0))
+                                        data['valor'].replace('.', '').replace(',', '.'),
+                                        data['vara'], data['codibge'], data['estado']))
+        connection.commit()
+        return 1 if rows > 0 else 0
+
+    @staticmethod
+    def new_order(req):
+        data = req.json
+        with connection.cursor() as cursor:
+            sql = """INSERT INTO `processos_pedidos` 
+            (`num_processo`, `tipo_pedido`, `valor_risco_provavel`, `status`) 
+            VALUES (%s, %s, %s, %s)"""
+            rows = cursor.execute(sql, (data['num_processo'], data['tipo_pedido'],
+                                        data['valor_risco_provavel'].replace('.', '').replace(',', '.'),
+                                        data['status']))
         connection.commit()
         return 1 if rows > 0 else 0
 

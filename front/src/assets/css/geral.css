@@ -6,6 +6,11 @@
     color: #555;
 }
 
+/* MODIFICADORES */
+.primary, .badge-primary {
+    background-color: var(--bg-blue) !important;
+}
+
 body {
     background-color: #F0F0F0;
 }
