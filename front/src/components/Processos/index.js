@@ -79,60 +79,6 @@ class Processos extends Component {
             </section>
         )
     }
-
-    /*
-    render() {
-        if(this.state.loading) return <Loading />
-        return (
-            <section>
-                <header>
-                        <Link to="/novo"><Button><i className="material-icons">folder_open</i><span>Novo...</span></Button></Link>
-                        <h4>Processos judiciais</h4>
-                </header>
-                <div>
-                    <Table responsive bordered hover>
-                        <thead>
-                            <tr>
-                                <th className="text-center">Número do processo</th>
-                                <th className="text-center">Data de distribuição</th>
-                                <th className="text-center">Réu principal</th>
-                                <th className="text-center">Valor da causa</th>
-                                <th className="text-center">Vara</th>
-                                <th className="text-center">Código IBGE</th>
-                                <th className="text-center">Comarca</th>
-                                <th className="text-center">UF</th>
-                                <th className="text-center">Criado</th>
-                                <th className="text-center">Atualizado</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.processos.map((processo) => {
-                                return (
-                                    <tr key={processo.num_processo}>
-                                        <td className="text-center">
-                                            <Link to={`/processo/${processo.num_processo}/${this.state.paginacao.pagina}`}>{processo.num_processo}</Link>
-                                        </td>
-                                        <td className="text-center align-middle">{processo.data_distrib}</td>
-                                        <td className="text-center align-middle">{processo.reu_principal}</td>
-                                        <td className="text-center align-middle">{processo.valor_causa}</td>
-                                        <td className="text-center align-middle">{processo.vara}</td>
-                                        <td className="text-center align-middle">{processo.codibge}</td>
-                                        <td className="text-center align-middle">{processo.comarca}</td>
-                                        <td className="text-center align-middle">{processo.uf}</td>
-                                        <td className="text-center align-middle">{processo.criado}</td>
-                                        <td className="text-center align-middle">{ (processo.atualizado !== '31/12/1969') ? processo.atualizado : '-' }</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </Table>
-                </div>
-                <footer>
-                    {this.pagination()}
-                </footer>
-            </section>
-        )
-    }*/
 }
 
 class CardProcesso extends Component {
@@ -146,41 +92,41 @@ class CardProcesso extends Component {
     render() {
         return (
             <Card style={{ marginTop: '15px' }}>
-                <Card.Body>
+                <Card.Body className="shadow-sm">
                     <div className="float-right text-right" style={{ width: '50%' }}>
                         <p><b>Data de distribuição:</b> { this.state.processo.data_distrib }</p>
-                    </div>
-                    <div style={{ width: '50%' }}>
-                        <Card.Title><span>N.º {this.state.processo.num_processo}</span> - {this.state.processo.reu_principal}</Card.Title>
-                        <Card.Text>
-                            <p>{ this.state.processo.vara+', '+this.state.processo.comarca+' - '+this.state.processo.uf }</p>
-                            <h4>
+                            <h4 className="float-right">
                                 Valor <Badge variant="primary">R$ { this.state.processo.valor_causa }</Badge>
                             </h4>
+                    </div>
+                    <div style={{ width: '50%' }}>
+                        <Card.Title className="text-primary"><b>{this.state.processo.num_processo}</b> - {this.state.processo.reu_principal}</Card.Title>
+                        <Card.Text>
+                            { this.state.processo.vara+', '+this.state.processo.comarca+' - '+this.state.processo.uf }
                         </Card.Text>
                     </div>
                 </Card.Body>
-                <Pedidos />
+
+                <Pedidos dados={this.state.processo.pedidos} />
             </Card>
         )
     }
 }
 
 class Pedidos extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { pedidos: this.props.dados }
+    }
+
     render() {
         return (
-            <div>
-                <Card.Body>
-                    <Card.Title><b>Pedidos</b></Card.Title>
-                    <ListGroup variant="flush">
-                        <ListGroup.Item>Cras justo odio</ListGroup.Item>
-                        <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                        <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-                        <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-                        <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
-                    </ListGroup>
-                </Card.Body>
-            </div>
+            <Card.Body className="p-0">
+                <Card.Title className="pl-3 pt-3"><b>Pedidos</b></Card.Title>
+                <ListGroup variant="flush">
+                    {this.state.pedidos.map((pedido) => <ListGroup.Item key={pedido.id}>{pedido.tipo_nome} - R$ {pedido.valor_risco_provavel}<span className="float-right"><b>Status:</b> {pedido.status}</span></ListGroup.Item>)}
+                </ListGroup>
+            </Card.Body>
         )
     }
 }

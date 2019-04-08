@@ -38,6 +38,12 @@ class Process:
         return 1 if rows > 0 else 0
 
     @staticmethod
+    def get_order_types():
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM `processos_pedidos_tipos`")
+            return cursor.fetchall()
+
+    @staticmethod
     def get_process(process_id):
         with connection.cursor() as cursor:
             sql = """SELECT 
@@ -80,8 +86,16 @@ class Process:
             start = end - self.ppp
             i = 1
 
+            # cria lista de processos da página
             processes_page = {"items": []}
             for process in processes:
+                sql = "SELECT pp.id, pp.tipo_pedido, ppt.tipo as tipo_nome, pp.valor_risco_provavel, pp.status " \
+                      "FROM `processos_pedidos` as pp " \
+                      "LEFT JOIN `processos_pedidos_tipos` as ppt ON pp.tipo_pedido = ppt.id " \
+                      "WHERE pp.num_processo = '{num}'".format(num=process['num_processo'])
+                cursor.execute(sql)
+                orders = cursor.fetchall()
+                process['pedidos'] = orders
                 if start < i <= end:
                     processes_page['items'].append(process)
                 i += 1

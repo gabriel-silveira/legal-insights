@@ -21,6 +21,11 @@ def new_order():
     return str(p.new_order(request))
 
 
+@app.route('/processos/pedidos/tipos')
+def get_order_types():
+    return p.json(p.get_order_types())
+
+
 @app.route('/processos/<num_processo>')
 def get_process(num_processo):
     return p.json(p.get_process(num_processo))

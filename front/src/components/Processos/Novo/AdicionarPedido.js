@@ -11,12 +11,30 @@ export default class AdicionarPedido extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            pedidos_tipos: {},
             alertaPreenchimento: false,
             processoAdicionado: false,
             tipo_pedido: 0,
             status: '',
             dados_processo: this.props.dados_processo
         }
+    }
+
+    async componentDidMount() {
+        // obtém tipos de pedidos
+        const res = await API.get('processos/pedidos/tipos')
+        this.setState( { pedidos_tipos: res.data } )
+    }
+
+    // monta select com tipos de pedidos
+    pedidosTipos() {
+        const options = []
+        options.push(<option onClick={(e) => { this.setState({ tipo_pedido: 0 }) }} key="0">selecione</option>)
+        for(let tipo in this.state.pedidos_tipos) {
+            let id = this.state.pedidos_tipos[tipo].id, nome_tipo = this.state.pedidos_tipos[tipo].tipo
+            options.push(<option onClick={(e) => { this.setState({ tipo_pedido: id }) }} key={id}>{nome_tipo}</option>)
+        }
+        return options
     }
 
     handleChange = (event) => {
@@ -54,6 +72,7 @@ export default class AdicionarPedido extends Component {
     }
 
     render() {
+        
         if(this.state.processoAdicionado) return (
             <Alert variant="success" className="text-center">Processo adicionado com sucesso!</Alert>
         )
@@ -66,11 +85,7 @@ export default class AdicionarPedido extends Component {
                         <Form.Group controlId="Pedido">
                             <Form.Label>Pedido</Form.Label>
                             <Form.Control as="select">
-                                <option onClick={(e) => { this.setState({ tipo_pedido: 0 }) }}>selecione</option>
-                                <option onClick={(e) => { this.setState({ tipo_pedido: 1 }) }}>Horas extras</option>
-                                <option onClick={(e) => { this.setState({ tipo_pedido: 2 }) }}>Dano moral</option>
-                                <option onClick={(e) => { this.setState({ tipo_pedido: 3 }) }}>Dano material</option>
-                                <option onClick={(e) => { this.setState({ tipo_pedido: 4 }) }}>Outros</option>
+                                {this.pedidosTipos()}
                             </Form.Control>
                         </Form.Group>
                     </Form.Group>
