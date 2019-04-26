@@ -7,6 +7,11 @@ app = Flask(__name__)
 CORS(app)
 
 
+@app.route('/', methods=['GET'])
+def index():
+    return 'Running!'
+
+
 # PROCESSOS
 p = Process()
 

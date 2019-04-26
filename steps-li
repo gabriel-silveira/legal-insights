@@ -1,0 +1,24 @@
+seguir exemplo de https://github.com/theskumar/python-dotenv
+
+1. clone repository
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+API (com o mysql instalado)
+1. cd api
+2. python3 -m venv venv
+3. . venv/bin/activate
+4. (shell script) install dependencies:
+- pip install flask
+- pip install pymysql
+- pip install -U python-dotenv
+- pip install Flask-Cors
+5. sudo chmod 755 serve
+6. ./serve
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+FRONT
+
+1. cd front
+2. yarn install

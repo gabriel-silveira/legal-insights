@@ -91,7 +91,7 @@ class CardProcesso extends Component {
 
     render() {
         return (
-            <Card style={{ marginTop: '15px' }}>
+            <Card style={{ marginTop: '15px' }} className="shadow-sm">
                 <Card.Body className="shadow-sm">
                     <div className="float-right text-right" style={{ width: '50%' }}>
                         <p><b>Data de distribuição:</b> { this.state.processo.data_distrib }</p>
