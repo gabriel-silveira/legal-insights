@@ -1,7 +1,9 @@
+*.pyc
+*.env
+*.idea
+*.log
 /api/venv
 /api/.idea
 /api/__pycache__
 /api/models/__pycache__
-/api/.env
 /front/node_modules
-/front/yarn-error.log
