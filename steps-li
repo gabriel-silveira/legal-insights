@@ -6,7 +6,8 @@ seguir exemplo de https://github.com/theskumar/python-dotenv
 
 API (com o mysql instalado)
 1. cd api
-2. python3 -m venv venv
+2. With Python 3 installed: 
+- python3 -m venv venv
 3. . venv/bin/activate
 4. (shell script) install dependencies:
 - pip install flask
