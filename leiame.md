@@ -33,9 +33,17 @@ Aplicação para controle de processos judiciais.
 Crie um novo banco de dados com o nome *legal_insights* (collation utf8_general_ci).
 Importe ou execute o conteúdo do arquivo **li.sql** que se encontra na raiz do projeto para criar e popular as tabelas de dados necessárias para a aplicação.
 ### Passo 2: Configurando a API
-> Para que o Flask funcione, certifique-se de que tenha o Python na versão 3 e o pacote python3-venv instalado.
+> Para que o Flask funcione, certifique-se de que tenha o Python na versão 3.6 e o pacote python3-venv instalado.
 
-Abra o terminal (CTRL + ALT + T no Linux)
+Você pode ver a versão do seu Python no terminal com o comando a seguir. Na segunda lina está o comando para instalar o python3-venv.
+
+Abra o terminal (CTRL+ALT+T no Linux):
+```
+python3 --version
+sudo apt install python3-venv
+```
+
+Tudo ok?
 ```
 cd api
 python3 -m venv venv
