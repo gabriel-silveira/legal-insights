@@ -27,7 +27,7 @@ Aplicação para controle de processos judiciais.
 * **Buscas**:
   * Por número do processo, réu principal, estado, cidade, data de distribuição
 
-## Instalação
+## Instalação :space_invader:
 > As instruções a seguir (passos 1 e 2) consideram que o MySQL está devidamente instalado em seu ambiente.
 ### Passo 1: Base de dados
 Crie um novo banco de dados com o nome *legal_insights* (collation utf8_general_ci).
@@ -51,7 +51,7 @@ Enfim, instale o python3-venv:
 sudo apt install python3-venv
 ```
 
-Tudo ok? Vamos começar...
+Tudo ok? Vamos começar... :collision:
 
 No diretório do projeto:
 ```console
