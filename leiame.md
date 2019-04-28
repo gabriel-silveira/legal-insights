@@ -28,7 +28,7 @@ Aplicação para controle de processos judiciais.
   * Por número do processo, réu principal, estado, cidade, data de distribuição.
 
 ## Instalação
-> As instruções a seguir (passos 1 e 2) consideram o MySQL devidamente instalado em seu ambiente.
+> As instruções a seguir (passos 1 e 2) consideram que o MySQL está devidamente instalado em seu ambiente.
 ### Passo 1: Base de dados
 
 
