@@ -40,14 +40,14 @@ Você pode ver a versão do seu Python no terminal com o comando na primeira lin
 Na terceira linha está o comando para instalar o python3-venv.
 
 Abra o terminal (CTRL+ALT+T no Linux):
-```bash
+```console
 python3 --version
 sudo apt install python3
 sudo apt install python3-venv
 ```
 
 Tudo ok?
-```bash
+```console
 cd api
 python3 -m venv venv
 ```
