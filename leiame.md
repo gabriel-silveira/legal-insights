@@ -5,8 +5,11 @@
        |     |      |    _   /---'\  |          | |  \ |       |  | |    _  |   |      |         | 
        /---/ /----/  `.___|,'      \ /---/      / |   \|  \___.'  /  `.___| /   /      /    \___.' 
 ```                                                                                             
-## Processos Judiciais
-> Projeto exemplo. Aplicação para controle de processos judiciais. Esta aplicação foi originalmente criada para um teste e posteriormente ampliada, adicionando-se mais recursos ao projeto inicial. Veja mais detalhes no changelog.
+# legal-insights
+Aplicação para controle de processos judiciais.
+
+## Descrição
+> Projeto exemplo. Esta aplicação foi originalmente criada para um teste e posteriormente ampliada, adicionando-se mais recursos ao projeto inicial. Veja mais detalhes no changelog.
 
 ### Construído com:
 
