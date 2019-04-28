@@ -6,16 +6,14 @@
        /---/ /----/  `.___|,'      \ /---/      / |   \|  \___.'  /  `.___| /   /      /    \___.' 
 ```                                                                                             
 ## Processos Judiciais
-> Projeto exemplo.
-Aplicação para controle de processos judiciais.
-Esta aplicação foi originalmente criada para um teste e posteriormente ampliada, adicionando-se mais recursos ao projeto inicial.
+> Projeto exemplo. Aplicação para controle de processos judiciais. Esta aplicação foi originalmente criada para um teste e posteriormente ampliada, adicionando-se mais recursos ao projeto inicial. Veja mais detalhes no changelog.
 
 ### Construído com:
 
 * [React](https://reactjs.org/) - A JavaScript library for building user interfaces
 * [Flask](http://flask.pocoo.org/) - Flask is a microframework for Python
 * [React Bootstrap](https://react-bootstrap.github.io/) - The most popular front-end framework
-* [Axios] (https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
-* [MySQL] (https://www.mysql.com/) -  The world's most popular open source database
+* [Axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
+* [MySQL](https://www.mysql.com/) -  The world's most popular open source database
 
 
