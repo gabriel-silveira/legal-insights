@@ -32,5 +32,11 @@ Aplicação para controle de processos judiciais.
 ### Passo 1: Base de dados
 Crie um novo banco de dados com o nome *legal_insights* (collation utf8_general_ci).
 Importe ou execute o conteúdo do arquivo **li.sql** que se encontra na raiz do projeto para criar e popular as tabelas de dados necessárias para a aplicação.
-
+### Passo 2: Configurando a API
+> Para que o Flask seja configurado é necessário o Python na versão 3 e o pacote python3-venv instalado.
+Abra o terminal (CTRL + ALT + T no Linux)
+```
+cd api
+python3 -m venv venv
+```
 
