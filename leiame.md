@@ -20,7 +20,7 @@ Aplicação para controle de processos judiciais.
 * [MySQL](https://www.mysql.com/) -  The world's most popular open source database
 
 ### O que você encontrará aqui:
-* Processos:
+* **Processos:**
   * Adicionar, editar e excluir
-* Pedidos de processos:
+* **Pedidos de processos:**
   * Adicionar pedidos ao processos, editar e excluir
