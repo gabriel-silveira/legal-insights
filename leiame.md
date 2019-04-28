@@ -26,6 +26,7 @@ Aplicação para controle de processos judiciais.
   * Adicionar pedidos ao processos, editar e excluir
 * **Buscas**:
   * Por número do processo, réu principal, estado, cidade, data de distribuição.
+
 ===============================================================================
 ## Instalação
 
