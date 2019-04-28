@@ -46,7 +46,9 @@ sudo apt install python3
 sudo apt install python3-venv
 ```
 
-Tudo ok? Vamos começar... no diretório do projeto:
+Tudo ok? Vamos começar...
+
+No diretório do projeto:
 ```console
 cd api
 python3 -m venv venv
