@@ -46,7 +46,7 @@ sudo apt install python3
 sudo apt install python3-venv
 ```
 
-Tudo ok?
+Tudo ok? Vamos começar.
 ```console
 cd api
 python3 -m venv venv
