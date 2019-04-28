@@ -35,7 +35,7 @@ Importe ou execute o conteúdo do arquivo **li.sql** que se encontra na raiz do 
 ### Passo 2: Configurando a API
 > Para que o Flask funcione, certifique-se de que tenha o Python na versão 3.6 e o pacote python3-venv instalado.
 
-Você pode ver a versão do seu Python no terminal com o comando a seguir. Na segunda lina está o comando para instalar o python3-venv.
+Você pode ver a versão do seu Python no terminal com o comando na primeira linha abaixo. Na segunda linha está o comando para instalar o python3-venv.
 
 Abra o terminal (CTRL+ALT+T no Linux):
 ```
