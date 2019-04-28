@@ -27,7 +27,7 @@ Aplicação para controle de processos judiciais.
 * **Buscas**:
   * Por número do processo, réu principal, estado, cidade, data de distribuição.
 
-===============================================================================
 ## Instalação
+===============================================================================
 
 
