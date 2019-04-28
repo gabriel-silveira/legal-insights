@@ -21,6 +21,6 @@ Aplicação para controle de processos judiciais.
 
 ### O que você encontrará aqui:
 * Processos:
-    * Adicionar, editar e excluir
+  * Adicionar, editar e excluir
 * Pedidos de processos:
-    * Adicionar pedidos ao processos, editar e excluir
+  * Adicionar pedidos ao processos, editar e excluir
