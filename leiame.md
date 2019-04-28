@@ -27,12 +27,12 @@ Aplicação para controle de processos judiciais.
 * **Buscas**:
   * Por número do processo, réu principal, estado, cidade, data de distribuição
 
-## Instalação :space_invader:
+## Instalação
 > As instruções a seguir (passos 1 e 2) consideram que o MySQL está devidamente instalado em seu ambiente.
-### Passo 1: Base de dados
+### Passo 1: Base de dados :floppy_disk:
 Crie um novo banco de dados com o nome *legal_insights* (collation utf8_general_ci).
 Importe ou execute o conteúdo do arquivo **li.sql** que se encontra na raiz do projeto para criar e popular as tabelas de dados necessárias para a aplicação.
-### Passo 2: Configurando a API
+### Passo 2: Configurando a API :satellite:
 > Para que o Flask funcione, certifique-se de que tenha o Python na versão 3.6 e o pacote python3-venv instalado.
 
 Abra o terminal (CTRL + ALT + T no Linux).
