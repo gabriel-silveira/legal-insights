@@ -30,9 +30,7 @@ Aplicação para controle de processos judiciais.
 ## Instalação
 > As instruções a seguir (passos 1 e 2) consideram que o MySQL está devidamente instalado em seu ambiente.
 ### Passo 1: Base de dados
-```
-Crie um novo banco de dados com o nome legal_insights (collation utf8_general_ci).
-Importe ou execute o conteúdo do arquivo li.sql que se encontra na raiz do projeto para criar e popular as tabelas de dados necessárias para a aplicação.
-```
+Crie um novo banco de dados com o nome *legal_insights* (collation utf8_general_ci).
+Importe ou execute o conteúdo do arquivo **li.sql** que se encontra na raiz do projeto para criar e popular as tabelas de dados necessárias para a aplicação.
 
 
