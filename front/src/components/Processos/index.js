@@ -3,8 +3,10 @@ import { Link } from "react-router-dom"
 import Loading from '../Loading'
 import API from '../../services/api'
 
-import { Card, Badge, Button, Pagination, ListGroup } from 'react-bootstrap'
+import { Card, Badge, Button, Pagination, ListGroup, Container, Row, Col } from 'react-bootstrap'
 import './Processos.css'
+
+import AdicionarPedido from './Novo/AdicionarPedido'
 
 class Processos extends Component {
     constructor(props) {
@@ -67,8 +69,8 @@ class Processos extends Component {
         return (
             <section>
                 <header>
-                        <Link to="/novo"><Button><i className="material-icons">folder_open</i><span>Novo...</span></Button></Link>
-                        <h4>Processos judiciais</h4>
+                    <Link to="/novo"><Button><i className="material-icons">folder_open</i><span>Novo...</span></Button></Link>
+                    <h4>Processos judiciais</h4>
                 </header>
                 <div>
                 {this.state.processos.map((processo) => <CardProcesso dadosProcesso={processo} key={processo.num_processo} /> )}
@@ -113,6 +115,8 @@ class CardProcesso extends Component {
     }
 }
 
+
+
 class Pedidos extends Component {
     constructor(props) {
         super(props)
@@ -124,11 +128,52 @@ class Pedidos extends Component {
             <Card.Body className="p-0">
                 <Card.Title className="pl-3 pt-3"><b>Pedidos</b></Card.Title>
                 <ListGroup variant="flush">
-                    {this.state.pedidos.map((pedido) => <ListGroup.Item key={pedido.id}>{pedido.tipo_nome} - R$ {pedido.valor_risco_provavel}<span className="float-right"><b>Status:</b> {pedido.status}</span></ListGroup.Item>)}
+                    {this.state.pedidos.map((pedido) => <PedidoListItem dadosPedido={pedido} key="pedido.id" />)}
                 </ListGroup>
             </Card.Body>
         )
     }
 }
+
+
+
+class PedidoListItem extends Component {
+    constructor(props) {
+        super(props)
+        this.state = { pedido: this.props.dadosPedido }
+    }
+
+    edit(event, p) {
+        this.setState({ editing: true })
+    }
+
+    // método passado para componente <AdicionarPedido />
+    atualizado() {
+        alert('atualizado!')
+        this.setState({ editing: false })
+    }
+
+    render() {
+        const p = { ...this.state.pedido }
+        if(this.state.editing) return (
+            <ListGroup.Item>
+                <AdicionarPedido dados_pedido={p} callbackAtualizado={this.atualizado} />
+            </ListGroup.Item>
+        )
+        return (
+            <ListGroup.Item action onClick={(e) => { this.edit(e, p) }}>
+                <Container fluid>
+                    <Row>
+                        <Col xs={2} className="pl-0">{p.tipo_nome}</Col>
+                        <Col xs={2}>R$ {p.valor_risco_provavel}</Col>
+                        <Col className="pr-0 text-right"><b>Status:</b> {p.status}</Col>
+                    </Row>
+                </Container>
+            </ListGroup.Item>
+        )
+    }
+}
+
+
 
 export default Processos

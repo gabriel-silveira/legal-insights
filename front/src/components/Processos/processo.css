@@ -1,3 +1,7 @@
 #detalhes-processo .badge {
     margin-left: 15px;
 }
+
+.list-group-item-action {
+    cursor: pointer;
+}

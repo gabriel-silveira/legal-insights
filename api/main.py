@@ -26,6 +26,11 @@ def new_order():
     return str(p.new_order(request))
 
 
+@app.route('/processos/pedido/<order_id>', methods=["POST"])
+def update_order(order_id):
+    return str(p.update_order(request, order_id))
+
+
 @app.route('/processos/pedidos/tipos')
 def get_order_types():
     return p.json(p.get_order_types())

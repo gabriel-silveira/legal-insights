@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 26, 2019 at 05:24 PM
--- Server version: 5.7.25-0ubuntu0.18.04.2
--- PHP Version: 7.3.4-1+ubuntu18.04.1+deb.sury.org+3
+-- Generation Time: 28-Abr-2019 às 22:35
+-- Versão do servidor: 5.7.25-0ubuntu0.18.04.2
+-- versão do PHP: 7.3.4-1+ubuntu18.04.1+deb.sury.org+3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comarcas`
+-- Estrutura da tabela `comarcas`
 --
 
 CREATE TABLE `comarcas` (
@@ -35,7 +35,7 @@ CREATE TABLE `comarcas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dumping data for table `comarcas`
+-- Extraindo dados da tabela `comarcas`
 --
 
 INSERT INTO `comarcas` (`codibge`, `nome`, `uf`) VALUES
@@ -5706,7 +5706,7 @@ INSERT INTO `comarcas` (`codibge`, `nome`, `uf`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `estados`
+-- Estrutura da tabela `estados`
 --
 
 CREATE TABLE `estados` (
@@ -5716,7 +5716,7 @@ CREATE TABLE `estados` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dumping data for table `estados`
+-- Extraindo dados da tabela `estados`
 --
 
 INSERT INTO `estados` (`id`, `sigla`, `nome`) VALUES
@@ -5751,7 +5751,7 @@ INSERT INTO `estados` (`id`, `sigla`, `nome`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `processos`
+-- Estrutura da tabela `processos`
 --
 
 CREATE TABLE `processos` (
@@ -5767,16 +5767,17 @@ CREATE TABLE `processos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 
 --
--- Dumping data for table `processos`
+-- Extraindo dados da tabela `processos`
 --
 
 INSERT INTO `processos` (`num_processo`, `data_distrib`, `reu_principal`, `valor_causa`, `vara`, `comarca`, `uf`, `criado`, `atualizado`) VALUES
-('123', '2019-04-15', 'Gabriel Silveira de Souza', 321.54, '3 vara', 1200054, 'AC', '2019-04-26 20:17:05', NULL);
+('123', '2019-04-15', 'Gabriel Silveira de Souza', 321.54, '3 vara', 1200054, 'AC', '2019-04-26 20:17:05', NULL),
+('9785426', '2019-04-10', 'Denise Santos de Andrade', 5020.68, '4 vara civil', 3550704, 'SP', '2019-04-28 19:02:38', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `processos_pedidos`
+-- Estrutura da tabela `processos_pedidos`
 --
 
 CREATE TABLE `processos_pedidos` (
@@ -5789,16 +5790,17 @@ CREATE TABLE `processos_pedidos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `processos_pedidos`
+-- Extraindo dados da tabela `processos_pedidos`
 --
 
 INSERT INTO `processos_pedidos` (`id`, `num_processo`, `tipo_pedido`, `valor_risco_provavel`, `status`, `criado`) VALUES
-(1, '123', 1, 123.45, 'Teste', '2019-04-26 20:17:05');
+(1, '123', 2, 978.25, 'OK!', '2019-04-26 20:17:05'),
+(2, 't9785426', 2, 33.35, 'Mudou!', '2019-04-28 19:02:39');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `processos_pedidos_tipos`
+-- Estrutura da tabela `processos_pedidos_tipos`
 --
 
 CREATE TABLE `processos_pedidos_tipos` (
@@ -5807,7 +5809,7 @@ CREATE TABLE `processos_pedidos_tipos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `processos_pedidos_tipos`
+-- Extraindo dados da tabela `processos_pedidos_tipos`
 --
 
 INSERT INTO `processos_pedidos_tipos` (`id`, `tipo`) VALUES
@@ -5864,7 +5866,7 @@ ALTER TABLE `estados`
 -- AUTO_INCREMENT for table `processos_pedidos`
 --
 ALTER TABLE `processos_pedidos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `processos_pedidos_tipos`

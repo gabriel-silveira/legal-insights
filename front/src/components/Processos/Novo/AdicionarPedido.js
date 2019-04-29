@@ -11,16 +11,34 @@ export default class AdicionarPedido extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            id: 0,
+            tipo_pedido: 0,
+            status: '',
+            valor_risco_provavel: '',
+
             pedidos_tipos: {},
             alertaPreenchimento: false,
             processoAdicionado: false,
-            tipo_pedido: 0,
-            status: '',
-            dados_processo: this.props.dados_processo
+            dados_processo: this.props.dados_processo,
+            dados_pedido: this.props.dados_pedido,
         }
     }
 
     async componentDidMount() {
+
+        if(this.props.callbackAtualizado)
+            this.setState({ atualizado: this.props.callbackAtualizado })
+
+        if(this.props.dados_pedido) {
+            const { id, tipo_pedido, valor_risco_provavel, status } = { ...this.props.dados_pedido }
+            this.setState({
+                id,
+                tipo_pedido,
+                valor_risco_provavel,
+                status,
+            })
+        }
+        
         // obtém tipos de pedidos
         const res = await API.get('processos/pedidos/tipos')
         this.setState( { pedidos_tipos: res.data } )
@@ -32,7 +50,8 @@ export default class AdicionarPedido extends Component {
         options.push(<option onClick={(e) => { this.setState({ tipo_pedido: 0 }) }} key="0">selecione</option>)
         for(let tipo in this.state.pedidos_tipos) {
             let id = this.state.pedidos_tipos[tipo].id, nome_tipo = this.state.pedidos_tipos[tipo].tipo
-            options.push(<option onClick={(e) => { this.setState({ tipo_pedido: id }) }} key={id}>{nome_tipo}</option>)
+            options.push(<option value={id} key={id}
+                selected={this.state.tipo_pedido === id}>{nome_tipo}</option>)
         }
         return options
     }
@@ -67,6 +86,13 @@ export default class AdicionarPedido extends Component {
                         })
                     }
                 })
+            } else { // editando pedido do processo
+                const { id, tipo_pedido, valor_risco_provavel, status } = { ...this.state}
+                let dados_pedido = { tipo_pedido, valor_risco_provavel, status }
+                API.post(`processos/pedido/${id}`, dados_pedido).then((res) => {
+                    if(res.data)
+                        this.state.atualizado()
+                })
             }
         }
     }
@@ -83,8 +109,8 @@ export default class AdicionarPedido extends Component {
                 <Form.Row>
                     <Form.Group as={Col} controlId="Pedido">
                         <Form.Group controlId="Pedido">
-                            <Form.Label>Pedido</Form.Label>
-                            <Form.Control as="select">
+                            <Form.Label>Tipo do pedido</Form.Label>
+                            <Form.Control as="select" onChange={(e) => this.setState({ tipo_pedido: e.target.value })}>
                                 {this.pedidosTipos()}
                             </Form.Control>
                         </Form.Group>

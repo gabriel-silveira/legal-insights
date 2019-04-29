@@ -38,6 +38,20 @@ class Process:
         return 1 if rows > 0 else 0
 
     @staticmethod
+    def update_order(req, order_id):
+        data = req.json
+        with connection.cursor() as cursor:
+            sql = """UPDATE `processos_pedidos` 
+            SET `tipo_pedido` = %s, `valor_risco_provavel` = %s, 
+            `status` = %s WHERE `id` = %s"""
+            rows = cursor.execute(sql, (data['tipo_pedido'],
+                                        data['valor_risco_provavel'].replace('.', '').replace(',', '.'),
+                                        data['status'],
+                                        order_id))
+        connection.commit()
+        return 1 if rows > 0 else 0
+
+    @staticmethod
     def get_order_types():
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM `processos_pedidos_tipos`")
