@@ -44,8 +44,9 @@ class Process:
             sql = """UPDATE `processos_pedidos` 
             SET `tipo_pedido` = %s, `valor_risco_provavel` = %s, 
             `status` = %s WHERE `id` = %s"""
+            valor = str(data['valor_risco_provavel']).replace('.', '').replace(',', '.')
             rows = cursor.execute(sql, (data['tipo_pedido'],
-                                        data['valor_risco_provavel'].replace('.', '').replace(',', '.'),
+                                        valor,
                                         data['status'],
                                         order_id))
         connection.commit()

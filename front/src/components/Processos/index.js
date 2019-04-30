@@ -148,18 +148,19 @@ class PedidoListItem extends Component {
     }
 
     // método passado para componente <AdicionarPedido />
-    atualizado() {
-        alert('atualizado!')
+    atualizado = () => {
         this.setState({ editing: false })
     }
 
     render() {
         const p = { ...this.state.pedido }
+        
         if(this.state.editing) return (
             <ListGroup.Item>
                 <AdicionarPedido dados_pedido={p} callbackAtualizado={this.atualizado} />
             </ListGroup.Item>
         )
+
         return (
             <ListGroup.Item action onClick={(e) => { this.edit(e, p) }}>
                 <Container fluid>
