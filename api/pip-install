@@ -1,0 +1,6 @@
+#!/bin/bash
+pip install flask
+pip install pymysql
+pip install -U python-dotenv
+pip install Flask-Cors
+cp .env.example .env
