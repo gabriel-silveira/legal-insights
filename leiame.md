@@ -53,9 +53,25 @@ sudo apt install python3-venv
 
 Tudo ok? Vamos começar... :collision:
 
-No diretório do projeto:
+No diretório do projeto, entre em *api*, crie e ative o _virtual enviroment_:
 ```console
 cd api
 python3 -m venv venv
+. venv/bin/activate
+```
+Execute o script shell para instalar as dependências do projeto:
+* Flask
+* PyMySQL
+* python-dotenv
+* Flask-CORS
+```
+./pip-install.sh
+```
+Faça uma cópia do arquivo _.env.example_ e renomeie para _.env_. Você deve alterar as variáveis de acesso ao MySQL:
+```
+DB_HOST=localhost
+DB_USER=bill
+DB_PASS=bill
+DB_NAME=legal_insights
 ```
 
