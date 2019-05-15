@@ -67,7 +67,7 @@ Execute o script shell para instalar as dependências do projeto:
 ```console
 ./pip-install.sh
 ```
-Faça uma cópia do arquivo **.env.example_** e renomeie para **.env**. Você deve alterar as variáveis de acesso ao MySQL:
+Altere as variáveis de acesso ao MySQL no arquivo **.env**:
 ```console
 DB_HOST=localhost
 DB_USER=bill
