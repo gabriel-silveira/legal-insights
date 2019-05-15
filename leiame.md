@@ -64,11 +64,11 @@ Execute o script shell para instalar as dependências do projeto:
 * PyMySQL
 * python-dotenv
 * Flask-CORS
-```
+```console
 ./pip-install.sh
 ```
 Faça uma cópia do arquivo _.env.example_ e renomeie para _.env_. Você deve alterar as variáveis de acesso ao MySQL:
-```
+```console
 DB_HOST=localhost
 DB_USER=bill
 DB_PASS=bill
