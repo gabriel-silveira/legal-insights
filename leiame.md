@@ -65,7 +65,7 @@ Execute o script shell para instalar as dependências do projeto:
 * python-dotenv
 * Flask-CORS
 ```console
-./pip-install.sh
+./pip-install
 ```
 Altere as variáveis de acesso ao MySQL no arquivo **.env**:
 ```console
@@ -74,4 +74,7 @@ DB_USER=bill
 DB_PASS=bill
 DB_NAME=legal_insights
 ```
-
+O comando abaixo iniciará a aplicação em _127.0.0.1_ na porta _5000_:
+```
+./serve
+```
