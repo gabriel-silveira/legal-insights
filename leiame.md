@@ -53,7 +53,7 @@ sudo apt install python3-venv
 
 Tudo ok? Vamos começar... :collision:
 
-No diretório do projeto, entre em *api*, crie e ative o _virtual enviroment_:
+No diretório do projeto, entre em **api**, crie e ative o _virtual enviroment_:
 ```console
 cd api
 python3 -m venv venv
@@ -67,7 +67,7 @@ Execute o script shell para instalar as dependências do projeto:
 ```console
 ./pip-install.sh
 ```
-Faça uma cópia do arquivo _.env.example_ e renomeie para _.env_. Você deve alterar as variáveis de acesso ao MySQL:
+Faça uma cópia do arquivo **.env.example_** e renomeie para **.env**. Você deve alterar as variáveis de acesso ao MySQL:
 ```console
 DB_HOST=localhost
 DB_USER=bill
