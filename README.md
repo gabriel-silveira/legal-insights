@@ -31,7 +31,7 @@ Aplicação para controle de processos judiciais.
 > As instruções a seguir (passos 1 e 2) consideram que o MySQL está devidamente instalado em seu ambiente.
 ### Passo 1: Base de dados
 Crie um novo banco de dados com o nome *legal_insights* (collation utf8_general_ci).
-Importe ou execute as queries contidas no arquivo **li.sql** que se encontra na raiz do projeto para criar e popular as tabelas necessárias para a aplicação.
+Importe ou execute o conteúdo do arquivo **li.sql** que se encontra na raiz do projeto para criar e popular as tabelas de dados necessárias para a aplicação.
 ### Passo 2: Configurando a API
 > Para que o Flask funcione, certifique-se de que tenha o Python na versão 3.6 e o pacote python3-venv instalado.
 
@@ -53,9 +53,29 @@ sudo apt install python3-venv
 
 Tudo ok? Vamos começar... :collision:
 
-No diretório do projeto:
+No diretório do projeto, entre em **api**, crie e ative o _virtual enviroment_:
 ```console
 cd api
 python3 -m venv venv
+. venv/bin/activate
+```
+Execute o script shell para instalar as dependências do projeto:
+* Flask
+* PyMySQL
+* python-dotenv
+* Flask-CORS
+```console
+./pip-install
+```
+Altere as variáveis de acesso ao MySQL no arquivo **.env**:
+```console
+DB_HOST=localhost
+DB_USER=bill
+DB_PASS=bill
+DB_NAME=legal_insights
+```
+O comando abaixo iniciará a aplicação em _127.0.0.1_ na porta _5000_:
+```console
+./serve
 ```
 
